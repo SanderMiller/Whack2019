@@ -2,7 +2,7 @@ import serial
 import os
 import signal
 
-arduinoComPort = "COM8" # Set the com port
+arduinoComPort = "/dev/ttyACM0" # Set the com port
 baudRate = 115200 # the baud rate to 250000
 serialPort = serial.Serial(arduinoComPort, baudRate, timeout=1) # Set the serial port for reading
 
@@ -20,7 +20,7 @@ while True:
 	# Read in the serial data
     lineOfData = serialPort.readline().decode()
     # Write the line of data that was read over serial
-	datafile.write(lineOfData)
+    datafile.write(lineOfData)
 	# Print the line in terminal to ensure it is working
     print(str(lineOfData))
 	
