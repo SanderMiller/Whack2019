@@ -108,7 +108,7 @@ void loop(void) {
       if (success)
       {
         // Data seems to have been read ... spit it out
-        nfc.PrintHexChar(data, 4);
+        //nfc.PrintHexChar(data, 4);
         //Serial.println("");
 		
         // Wait a bit before reading the card again
