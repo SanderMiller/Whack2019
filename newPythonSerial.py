@@ -7,6 +7,7 @@ import time
 path = 'C:\\Users\\tjagielski\\Downloads\\database.csv'
 try:
     os.remove(path)
+    time.sleep(3)
 except FileNotFoundError:
     pass
 url = 'https://storage.cloud.google.com/medical_records_whack2019/database.csv'
@@ -31,27 +32,29 @@ baudRate = 115200 # the baud rate to 250000
 serialPort = serial.Serial(arduinoComPort, baudRate, timeout=1) # Set the serial port for reading
 
 # Open a new file to store the data to
-datafile = open('data.txt','a+')
+while True:
+    datafile = open('data.txt','a+')
 
-ID = ''
+    ID = ''
 
-while len(ID) < 4:
-	# Read in the serial data
-    ID = serialPort.readline().decode()
-    if "TIMEOUT!" in str(ID):
-        ID = ''
-    ID = ID.replace(" ","")
-    ID = ID.strip("\r\n")
-    # Write the line of data that was read over serial
-    datafile.write(ID)
-    # Print the line in terminal to ensure it is working
-    print(str(ID))
-	
-datafile.close()
+    while len(ID) < 4:
+        # Read in the serial data
+        ID = serialPort.readline().decode()
+        if "TIMEOUT!" in str(ID):
+            ID = ''
+        ID = ID.replace(" ","")
+        ID = ID.strip("\r\n")
+        # Write the line of data that was read over serial
+        datafile.write(ID)
+        # Print the line in terminal to ensure it is working
+        print(str(ID))
+        
+    datafile.close()
 
 
-if str(ID) not in database:
-    database[ID] = input("Link to person's medical files: ")
-link = database[str(ID)]
-webbrowser.open(link)
+    if str(ID) not in database:
+        database[ID] = input("Link to person's medical files: ")
+    link = database[str(ID)]
+    webbrowser.open(link)
+    time.sleep(3)
 
